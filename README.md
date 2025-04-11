@@ -1,7 +1,7 @@
 # 🚀 TruthSEO Snapshot Client
 
 **Add true SEO snapshotting to your WebAssembly or SPA-based site with a single script tag.**  
-Enable Google and other search engines to fully index your content — even if it’s Blazor, Web3, or dynamic JavaScript.
+Enable Google and other search engines to fully index your content — even if it’s Angluar, Blazor, Web3, or dynamic JavaScript.
 
 ---
 
