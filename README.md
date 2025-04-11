@@ -108,7 +108,3 @@ This is standard across all pre-rendering and SSR practices — just be honest, 
 **Now, WebAssembly apps can finally be indexed just like server-rendered pages.**  
 
 🛰️ *TruthSEO: Bringing visibility to the invisible web.*
-
----
-
-Let me know if you want this converted into a `README.md`, a NuGet or NPM README, or formatted with screenshots!
