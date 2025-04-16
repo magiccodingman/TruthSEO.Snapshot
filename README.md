@@ -136,4 +136,4 @@ Misleading metadata can result in SEO penalties. The protocol empowers honest vi
 
 **TruthOrigin: Bringing visibility to the invisible web — one snapshot at a time.**
 
-We give you the tools, the transparency, the fully mapped out guide as to how to resolvfe all your problems. But, your time is worth something. Let us help. Head over to [TruthOrigin.com](https://truthorigin.com) to learn how we can help you. Snapshots, SEO, CMS, you think that's SSR only? No! Let us empower your project today. We bring protocol to infrastructure.
+We give you the tools, the transparency, the fully mapped out guide as to how to resolve all your problems. But, your time is worth something. Let us help. Head over to [TruthOrigin.com](https://truthorigin.com) to learn how we can help you. Snapshots, SEO, CMS, you think that's SSR only? No! Let us empower your project today. We bring protocol to infrastructure.
