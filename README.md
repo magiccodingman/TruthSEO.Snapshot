@@ -1,123 +1,122 @@
-# 📖 TruthSEO Snapshot Protocol v1
+# 📖 TruthSnapshot Protocol (Powered by TruthOrigin)
 
-**Enable full SEO indexing for WebAssembly and SPA applications using the TruthOrigin protocol.**
-Built for frameworks like Blazor, Angular, React, Vue, and Web3 environments — this system delivers **clean, structured, and bot-friendly snapshots** with zero puppeteer or SSR hacks.
+**The definitive solution for SEO in WebAssembly, SPA, and decentralized environments.**
+TruthSnapshot enables **blazing-fast pre-rendered pages** with accurate SEO metadata for every route, while maintaining dynamic client-side routing.
+
+**TruthSnapshot is a next-gen snapshot and SEO system built for modern frontend frameworks — including Blazor WebAssembly, React, Angular, Vue, and even IPFS/Web3.** This is not framework dependant! This works anywhere and on anything!
+It enables instant-loading, search engine–friendly HTML snapshots that are **pre-rendered, metadata-optimized, and hydration-aware** — all without SSR, Puppeteer, or backend hacks.
+
+By placing a single script in your app and running our snapshot tool, you gain **dynamic per-page SEO**, blazing-fast initial load times, and **full control over routing and metadata — even on decentralized or static hosting.**
+
+TruthSnapshot bridges the gap between rich client-side apps and structured web visibility.  
+**Now, your content isn’t just beautiful. It’s discoverable.**
 
 ---
 
 ## ⚡ Quick Start
 
-Add the following **two lines** to your `index.html`:
+Add this to your `index.html` of your WASM application:
 
 ```html
-<a href="/index" style="display:none;">SEO Entry</a>
-<script src="https://cdn.jsdelivr.net/gh/magiccodingman/TruthSEO.SnapshotClient@main/truthseo-snapshot.js"></script>
-```
+<a href="/index" style="display: none;" aria-hidden="true" tabindex="-1">Bot Gateway</a>
 
-> ✅ The `<script>` enables the snapshot protocol.
-> ✅ The hidden `<a>` tag ensures bots discover your `/index` snapshot.
+<script
+  id="truthorigin-snapshot"
+  data-version="1"
+  data-force-origin="false"
+  src="https://cdn.jsdelivr.net/gh/magiccodingman/TruthSEO.SnapshotClient@main/truthseo-snapshot.js">
+</script>
+```
+* ✅ Enables the TruthSnapshot hydration and version control.
+* ✅ `data-version` lets you enforce sync between snapshots and the live site.
+  - Suggested you bump this up any time you directly make updates/changes to your index.html
+* ✅ `data-force-origin` (optional) forces live index.html hydration every time.
+* ✅ The hidden `<a>` tag ensures bots discover your `/index` snapshot.
 
 ---
 
-## 🧠 How Snapshotting Works
+## 🧬 How Snapshotting Works
 
+With your index.html updated, you can republish your application and use your true base domain. Or if you wish, you can just use your local host url. Either way, make sure your `sitemap.xml` uses URLs from your localhost or live production environment before running the snapshots. As all snapshots are utilizing your resources client side.
 1. Go to: [https://TruthOrigin.com/tools/wasm-snapshot](https://truthorigin.com/tools/wasm-snapshot)
-2. Enter your **website URL** or upload a `sitemap.xml`
+2. Upload a `sitemap.xml`
 3. The tool:
-   - Loads each page in a hidden iframe
-   - Waits for your page to declare snapshot readiness
-   - Extracts a clean, bot-readable snapshot
-   - Streams results into a downloadable `.tar` archive
-4. You unzip and deploy the snapshots into your `wwwroot` or static file directory
+   - Loads pages in a iframe
+   - Waits for `<truthseo-snapshot-ready>` to appear
+   - Extracts clean DOM and sanitized SEO metadata
+   - Outputs a `.tar` archive of snapshot files
+4. Unzip the tar file.
+5. Build your WASM for release.
+6. Copy all the folders and files from the provided tar file directly into your built wwwroot folder.
+   - It’s recommended not to include snapshot files in source control to avoid unnecessary clutter.
+7. Publish your wasm!
+
+> ✨ Files are stored as `path/to/page/index.html` instead of extensionless files.
 
 ---
 
 ## 🏷️ Declaring Snapshot Readiness
 
-In your page content, **after hydration is complete**, add the following:
+After your app has hydrated, inject:
 
 ```html
 <truthseo-snapshot-ready>
   <title>Your Page Title</title>
   <meta name="description" content="Your description here">
-  <link rel="canonical" href="https://yoursite.com/this-page">
+  <link rel="canonical" href="https://yourdomain.com/page">
   <script type="application/ld+json">{ ... }</script>
 </truthseo-snapshot-ready>
 ```
 
-> ✅ This tag **declares the SEO metadata** for the page.
-> ✅ The snapshot tool will **extract this block**, clean the `<head>`, and inject the SEO tags correctly.
+* ✅ This content replaces the `<head>` contents during snapshot.
+* ✅ All pre-existing `<title>`, canonical tags, meta tags (except charset, viewport, http-equiv), and JSON-LD are stripped before injecting this.
 
-The protocol will automatically:
-- Remove previous `<title>`, `<meta>` (except viewport and charset), `<link rel=canonical>`, and JSON-LD
-- Preserve non-SEO tags like stylesheets, manifests, and scripts
+A script is also injected near the `</body>` to:
+- Compare snapshot version to origin `/index.html`
+- Redirect if `data-version` mismatch is found
+- Maintain seamless hydration without full reload if versions match
+
+If `data-force-origin="true"`, redirection always occurs regardless of version match.
 
 ---
 
 ## ✨ What the Snapshot Includes
 
-Each snapshot page is a standalone `.html`-like file (no extension) that includes:
-- ✅ A reconstructed `<head>` with only relevant SEO metadata
-- ✅ The complete DOM output post-hydration
-- ✅ An embedded `<meta name="truthseo:snapshot-version" content="X">` for versioning
-- ✅ Optional logic for rehydrating your app or redirecting users from static snapshot to live content
-
-Example snapshot `<head>`:
-```html
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="truthseo:snapshot-version" content="9">
-  <title>Weather | Localhost</title>
-  <meta name="description" content="Weather information display page.">
-  <link rel="canonical" href="https://localhost/weather">
-  <script type="application/ld+json">{...}</script>
-</head>
-```
+Each snapshot consists of:
+- ✅ A proper folder structure ending in `/index.html`
+- ✅ Injected `<head>` containing:
+  - Cleaned metadata
+  - Your declared `<truthseo-snapshot-ready>` contents
+  - `<meta name="truthseo:snapshot-version" content="X">`
+- ✅ Embedded logic near `</body>` for version sync & hydration
+- ✅ Your app's DOM at full hydration state
 
 ---
 
-## 🚀 Deployment Steps
+## 🧐 How It Works for Users & Bots
 
-1. Run the snapshot tool to generate a `.tar`
-2. Extract the `.tar`
-3. Copy the contents into your WebAssembly app’s `wwwroot`
-4. Publish your site as usual
+- 🔍 Bots see fully formed HTML with SEO and semantic metadata
+- 👤 Users land on fast-loading pre-rendered content with no hydration delay
+- ✨ If snapshot version is outdated, a soft redirection syncs back to latest `/index.html`
+- 🚀 Framework hydration begins **without reload** if version matches
 
----
-
-## 🤖 SEO & Bot Support
-
-- Bots see **fully rendered HTML**, not JavaScript
-- Structured Data (JSON-LD), metadata, OpenGraph, canonical links are **correctly placed** in the `<head>`
-- The system is **framework-agnostic**, but works beautifully with Blazor, Angular, React, Vue, etc.
-- Only `/index` differs in structure from other pages — it is accessible via `<a href="/index">`
+Works on:
+- Blazor WebAssembly
+- Angular / React / Vue
+- Web3 + IPFS paths
+- Static Hosts (e.g., Azure Static Web Apps, Netlify, GitHub Pages)
+- Literally anything!
 
 ---
 
-## ⚠️ Snapshot Responsibility
+## ⚠️ Your Responsibility
 
-It is **your responsibility** to:
-- Keep snapshots up to date when content changes
-- Ensure `<truthseo-snapshot-ready>` reflects what the user sees
+You must:
+- ✅ Keep snapshots updated with new content
+- ✅ Ensure snapshot metadata truthfully reflects visible content
 
-Google and other search engines may penalize if your snapshot misrepresents the live page.
-
-✅ Just be honest, and you're golden.
-
----
-
-## ✅ Summary Checklist
-
-| Step | Action |
-|------|--------|
-| ✅ 1 | Add the TruthSEO script + hidden anchor to `index.html` |
-| ✅ 2 | Add `<truthseo-snapshot-ready>` block in your hydrated content |
-| ✅ 3 | Use the snapshot tool to generate your `.tar` archive |
-| ✅ 4 | Extract and deploy snapshot files into `wwwroot` |
-| ✅ 5 | Ensure every important page has proper SEO truth blocks |
+Misleading metadata can result in SEO penalties. The protocol empowers honest visibility.
 
 ---
 
 **TruthSEO: Bringing visibility to the invisible web — one snapshot at a time.**
-
