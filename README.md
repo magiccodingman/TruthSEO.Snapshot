@@ -41,8 +41,8 @@ With your index.html updated, you can republish your application and use your tr
 1. Go to: [https://TruthOrigin.com/tools/wasm-snapshot](https://truthorigin.com/tools/wasm-snapshot)
 2. Upload a `sitemap.xml`
 3. The tool:
-   - Loads pages in a iframe
-   - Waits for `<truthseo-snapshot-ready>` to appear
+   - Loads pages in an iframe
+   - Waits for `<truthseo-snapshot-ready>`
    - Extracts clean DOM and sanitized SEO metadata
    - Outputs a `.tar` archive of snapshot files
 4. Unzip the tar file.
@@ -95,7 +95,7 @@ Each snapshot consists of:
 
 ## Index Page Suggestion
 
-Not your index.html but your routed and hydrated index page that is your base `/` route. For the snapshot you do need to have a `truthseo-snapshot-ready` tag as that's the initiator for the snapshot system to know it is loaded as it always starts from origin. But I suggest on your hydrated index page you add:
+Not your physical `index.html`, but your hydrated homepage route (`/`) — the one users and bots actually see. For the snapshot you do need to have a `truthseo-snapshot-ready` tag as that's the initiator for the snapshot system to know it is loaded as it always starts from origin. But I suggest on your hydrated index page you add:
 ```html
 <truthseo-snapshot-ready>
     <meta name="robots" content="noindex, follow" />
@@ -127,8 +127,8 @@ Works on:
 ## ⚠️ Your Responsibility
 
 You must:
-- ✅ Keep snapshots updated with new content
-- ✅ Ensure snapshot metadata truthfully reflects visible content
+- ❗ Keep your snapshots updated. Misleading or outdated metadata will hurt SEO.
+- ❗ Ensure snapshot metadata truthfully reflects visible content
 
 Misleading metadata can result in SEO penalties. The protocol empowers honest visibility.
 
