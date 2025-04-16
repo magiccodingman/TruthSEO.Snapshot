@@ -1,4 +1,4 @@
-# 📖 TruthSnapshot Protocol (Powered by TruthOrigin)
+# 📖 TruthSnapshot Protocol (Powered by [TruthOrigin](https://truthorigin.com))
 
 **The definitive solution for SEO in WebAssembly, SPA, and decentralized environments.**
 TruthSnapshot enables **blazing-fast pre-rendered pages** with accurate SEO metadata for every route, while maintaining dynamic client-side routing.
