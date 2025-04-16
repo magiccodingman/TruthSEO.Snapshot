@@ -18,7 +18,7 @@ TruthSnapshot bridges the gap between rich client-side apps and structured web v
 Add this to your `index.html` of your WASM application:
 
 ```html
-<a href="/index" style="display: none;" aria-hidden="true" tabindex="-1">Bot Gateway</a>
+<a href="/index/index.html" style="display: none;" aria-hidden="true" tabindex="-1">Bot Gateway</a>
 
 <script
   id="truthorigin-snapshot"
@@ -90,6 +90,19 @@ Each snapshot consists of:
   - `<meta name="truthseo:snapshot-version" content="X">`
 - ✅ Embedded logic near `</body>` for version sync & hydration
 - ✅ Your app's DOM at full hydration state
+
+---
+
+## Index Page Suggestion
+
+Not your index.html but your routed and hydrated index page that is your base `/` route. For the snapshot you do need to have a `truthseo-snapshot-ready` tag as that's the initiator for the snapshot system to know it is loaded as it always starts from origin. But I suggest on your hydrated index page you add:
+```html
+<truthseo-snapshot-ready>
+    <meta name="robots" content="noindex, follow" />
+</truthseo-snapshot-ready>
+```
+
+As the index.html will have your actual index SEO, but when the bot sees the hidden href tag going to `/index/index.html`, we are telling the bot, "yes come to this page, but don't index it because it doesn't exist. This is just your visual gateway to see my nav bar and other links to begin your crawl exploration. So don't index this fake index page, just follow the links."
 
 ---
 
