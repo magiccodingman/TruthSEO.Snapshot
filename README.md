@@ -51,7 +51,7 @@ With your index.html updated, you can republish your application and use your tr
    - It’s recommended not to include snapshot files in source control to avoid unnecessary clutter.
 7. Publish your wasm!
 
-> ✨ Files are stored as `path/to/page/index.html` instead of extensionless files.
+> ✨ Files are stored as `path/to/page/index.html`.
 
 ---
 
