@@ -102,7 +102,7 @@ Not your physical `index.html`, but your hydrated homepage route (`/`) — the o
 </truthseo-snapshot-ready>
 ```
 
-As the index.html will have your actual index SEO, but when the bot sees the hidden href tag going to `/index/index.html`, we are telling the bot to simply follow pre rendered pages and follow the nav.
+As the index.html will have your actual index SEO, but when the bot sees the hidden href tag going to `/index/index.html`, we are telling the bot, "yes come to this page, but don't index it because it doesn't exist. This is just your visual gateway to see my nav bar and other links to begin your crawl exploration. So don't index this fake index page, just follow the links."
 
 Or if you're feeling bold, why not put real SEO on your page, then replace your `wwwroot/index.html` with the `wwwroot/index/index.html`? Then every single page loads lightning fast with your snapshot pre render! The world is your burrito.
 
