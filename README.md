@@ -102,7 +102,7 @@ Not your physical `index.html`, but your hydrated homepage route (`/`) — the o
 </truthseo-snapshot-ready>
 ```
 
-As the index.html will have your actual index SEO, but when the bot sees the hidden href tag going to `/index/index.html`, we are telling the bot, "yes come to this page, but don't index it because it doesn't exist. This is just your visual gateway to see my nav bar and other links to begin your crawl exploration. So don't index this fake index page, just follow the links."
+As the index.html will have your actual index SEO, but when the bot sees the hidden href tag going to `/index/index.html`, we are telling the bot, "yes come to this page and just follow the links." Originally I put a meta data tag value of noindex, but follow. But though not 100% confirmed, I believe this may have caused issues for Bing trying to render the page and then seeing the "noindex".
 
 Or if you're feeling bold, why not put real SEO on your page, then replace your `wwwroot/index.html` with the `wwwroot/index/index.html`? Then every single page loads lightning fast with your snapshot pre render! The world is your burrito.
 
@@ -199,13 +199,29 @@ We recommend **Netlify**, as it allows you to override default behavior via `_he
 
 As you can see each of the `ETag: ""` is an empty string. This is how the harmful identical `Etag` Id was bypassed.
 
-#### `_redirects` (Fixes capitalization mismatches)
 
+#### `_redirects` (Fixes Capitalization Without SEO Damage)
+
+```txt
+/Ant         /ant         200!
+/Ant/        /ant/        200!
+/Bed-Bug     /bed-bug     200!
+/Bed-Bug/    /bed-bug/    200!
 ```
-/Ant         /ant         301
-/Ant/        /ant/        301
-/Bed-Bug     /bed-bug     301
-```
+
+##### ❗ Why use `200!` instead of `301`?
+
+**Previously**, we used `301` redirects to normalize uppercase and trailing slashes. But here's the problem:
+
+* 🔄 `301` responses **signal a redirect**, which bots may treat as a "soft exclusion" or penalize.
+* 🧠 Bing especially can treat these redirects as **less canonical**, hurting indexing chances.
+* 🪞 Even if the final page is perfect, the **redirect itself gets logged** and may show up as excluded in Bing Webmaster Tools.
+
+✅ **By using `200!`**:
+
+* We **rewrite the URL** internally — no actual redirect happens.
+* Search engines receive a **stable, clean 200 OK** response.
+* No redirect trails → no misinterpretation by bots → better indexing.
 
 **📌 These changes ensure that:**
 
